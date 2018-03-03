@@ -1,5 +1,5 @@
 const Messenger = require('fb-messenger')
-const config = require('./config.js')
+const config = require('./config.json')
 var messenger = new Messenger(config.page_token)
 var request = require("request");
 var fb ={
