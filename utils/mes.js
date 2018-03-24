@@ -11,7 +11,7 @@ module.exports = {
           "payload":{
             "template_type": "generic",
             "elements":[{
-              "title":"【食物快遞】現在有人贈送免費的" + ajaxdata.food_name + "是否去拿?",
+              "title": ajaxdata.food_name,
               "subtitle":"食物數量:"+ ajaxdata.food_number + "\n地址:"+ ajaxdata.location + "\n請在" + ajaxdata.deadline +"來拿",
               "image_url": ajaxdata.image_url,
               "buttons":[
@@ -52,6 +52,7 @@ module.exports = {
   dealmes:(body,res,EVENTS)=>{
     var subtract = new Subtract((a, b) => { return a === b })
 		body.entry.forEach(function(entry){
+                console.log(entry)
 		let webhook_event = entry.messaging[0] 
 		let sender_psid = webhook_event.sender.id 
     console.log("get post id:"+sender_psid);
