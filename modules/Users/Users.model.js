@@ -49,7 +49,13 @@ exports.list_Users = ()=>{
       
         // object of all the users
         console.log(Users);
-      });
+        
+        // Save as file
+        var fs = require('fs');
+        var json = JSON.stringify(Users);
+        fs.writeFile('../DB_Backup_Users.json', json, 'utf8');
+        console.log('DB_Backup_Users.json has been saved');
+    });
 }
 
 exports.subscribe_update = (body)=>{

@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const config = require('../config.json')
 exports.start = (success) => {
     mongoose.connect(config.mongo_db);
+    console.log("Connecting to db with config :" + config.mongo_db);
     const db = mongoose.connection;
     db.on('error',console.error.bind(console, 'connection error:'));
     db.once('open', ()=>{
