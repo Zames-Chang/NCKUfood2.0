@@ -2,3 +2,4 @@ node_modules
 ssl
 config.js
 DB_Backup_Users.json
+DB_Backup_Students.json

@@ -30,7 +30,13 @@ exports.list_Students = ()=>{
     return Students.find({}, function(err, Students) {
         if (err) throw err;
       
-        // object of all the users
+        // object of all the events
         console.log(Students);
+
+        // Save as json file
+        var fs = require('fs');
+        var json = JSON.stringify(Students);
+        fs.writeFile('../DB_Backup_Students.json', json, 'utf8');
+        console.log('DB_Backup_Students.json has been saved');
       });
 }
