@@ -30,7 +30,7 @@ var
   ca = fs.readFileSync(__dirname + '/ssl/ca_bundle.crt'),
   credentials = { key: privateKey, cert: certificate, ca: ca } 
 //打開 https port 
-  https.createServer(credentials, app).listen(17487, function () {
+  https.createServer(credentials, app).listen(17486, function () {
     
     })
 app.get('/rending',(req,res)=>{
