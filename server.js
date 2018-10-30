@@ -110,13 +110,16 @@ app.get('/nckufood_student',(req,res)=>{
 
       var sendfood = mes.sendfood(ajaxdata)
       var tossfooder = mes.tossfooder(ajaxdata)
-      fb.handleMessage('1395633180554060',"",sendfood) //給管理員看
+      fb.handleMessage('1395633180554060',"",sendfood) //給管理員zames看
       messenger.sendTextMessage('1395633180554060',ev.id) //給管理員看誰發的
+      fb.handleMessage('1510510379078812',"",sendfood) //給管理員luben看
+      messenger.sendTextMessage('1510510379078812',ev.id) //給管理員看誰發的
+      fb.handleMessage(ev.id,"",tossfooder) 
       for(var i=0; i < ev.promotion.length;i++){
         fb.handleMessage(ev.promotion[i],"",sendfood)
         console.log("發食物給 " + ev.promotion[i] + "!")
       }
-      fb.handleMessage(ev.id,"",tossfooder) 
+
        // fb.handleMessage(myloveobj.id,"",tossfooder)
   })
 
