@@ -133,4 +133,4 @@ function renew_data() {
     app.$forceUpdate()
   })
 }
-window.setTimeout(renew_data, 1000);
+window.setTimeout(renew_data, 60000);
