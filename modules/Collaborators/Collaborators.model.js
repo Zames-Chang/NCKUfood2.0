@@ -4,16 +4,9 @@ const mongoose = require('mongoose'),
 
 Schema = mongoose.Schema;  
 var CollaboratorsSchema = new Schema({
+    id: String,
     shop_name: String,
-    food_name: String,
-    food_number: String,
-    deadline: String,
-    location: String,
-    time_hr: String,
-    time_min: String,
-    normal_price: String,
-    special_price: String,
-    image_url: String
+    location: String
     },{collection : 'Collaborators'});
 
 
@@ -34,7 +27,7 @@ exports.list_Collaborators = ()=>{
     return Collaborators.find({}, function(err, Collaborators) {
         if (err) throw err;
       
-        // object of all the users
+        // object t of all the users
         console.log(Collaborators);
       });
 }
