@@ -66,7 +66,7 @@ var my_reminder = new Vue({
 var add_food = new Vue({
   el: "#add_food",
   data: {
-    shop_code:"活力小廚"
+    shop_code:"活力小廚",
     food_name: '',
     food_price: '',
     food_img: '',
