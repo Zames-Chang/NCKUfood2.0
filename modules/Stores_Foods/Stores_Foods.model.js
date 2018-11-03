@@ -3,15 +3,18 @@
 const mongoose = require('mongoose'),   
 
 Schema = mongoose.Schema;  
-var Stores_FoodsSchema = new Schema({
+
+var Stores_FoodsScehma = new Schema({
     id: String,
-    food_name: String,
-    food_number: String,
+    stord_name: String,
+    food_inf: {
+        img:[String],
+        price:[Number],
+        name:[String]
+    }
     deadline: String,
     location: String,
-    image_url: String
     },{collection : 'Stores_Foods'});
-
 
 var Stores_Foods = mongoose.model("Stores_Foods", Stores_FoodsSchema);
 
