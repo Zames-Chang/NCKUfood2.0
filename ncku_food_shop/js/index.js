@@ -6,7 +6,11 @@ var app = new Vue({
   data: {
     food_list: food_list,
     status: 0 },
-
+  created: function() {
+    $.post("getFood", function (data) {
+      food_list = data
+    })
+  }
   methods: {
     next_one: function next_one() {
       var now_status = app.status;
