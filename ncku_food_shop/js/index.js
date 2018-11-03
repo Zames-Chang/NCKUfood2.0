@@ -114,15 +114,18 @@ var add_food = new Vue({
 
 
 // make image to base64
-function readFile(e) {
+function readFile() {
   if (this.fiddles && this.files[0]) {
     var FR = new FileReader();
     FR.addEventListener("load", function (e) {
       // e.target.result is image base64 form so binding it to Vue
       var str = e.target.result
-      var compressed = LZString.compress(str);
+      //var compressed = LZString.compress(str);
       add_food.food_img = e.target.result
-      add_food.food_file = str
+      //add_food.food_file = str
+      var my_lzma = new LZMA("./lzma_worker.js");
+      console.log(add_food.food_img)
+      //my_lzma.compress(str, 1, on_finish(result, error) {add_food.food_file = result}, on_progress(percent) {});
       $("#upload_food_img").css("background-image", 'url(' + add_food.food_img + ')');
       $("#upload_food_img").css("width", "300px");
       $("#upload_food_img").css("height", "200px");
