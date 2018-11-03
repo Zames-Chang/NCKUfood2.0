@@ -10,7 +10,7 @@ var CollaboratorsSchema = new Schema({
     },{collection : 'Collaborators'});
 
 
-var Collaboratorss = mongoose.model("Collaborators",CollaboratorssSchema);
+var Collaborators = mongoose.model("Collaborators",CollaboratorsSchema);
 
 CollaboratorsSchema.statics.find_by_id = (id, callback)=>{
     return this.findOne({id: id}, callback);
