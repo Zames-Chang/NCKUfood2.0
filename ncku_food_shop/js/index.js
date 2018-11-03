@@ -10,7 +10,7 @@ var app = new Vue({
     $.post("getFood", function (data) {
       food_list = data
     })
-  }
+  },
   methods: {
     next_one: function next_one() {
       var now_status = app.status;
