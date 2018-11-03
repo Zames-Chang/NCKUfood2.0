@@ -1,4 +1,7 @@
- // fake data
+import axios from 'axios';
+import ImageCompressor from 'image-compressor.js';
+
+// fake data
 var food_list = [{ food_name: "大雞雞1", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 10, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞2", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 20, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞3", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 30, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞4", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 40, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }];
 // Vue for food list
 var app = new Vue({
@@ -70,6 +73,7 @@ var add_food = new Vue({
     food_name: '',
     food_price: '',
     food_img: '',
+    food_file: "",
     last_time: 50,
     error_message: "你有東西未填",
     error_code: false },
@@ -87,7 +91,7 @@ var add_food = new Vue({
             shop_code: add_food.shop_code,
             food_name: add_food.food_name,
             food_price: add_food.food_price,
-            food_img: add_food.food_img,// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
+            food_file: add_food.food_file,
             last_time: add_food.last_time // min
           }
           $.post("uploadFood",uploadFood, function (data) {
@@ -110,23 +114,32 @@ var add_food = new Vue({
 
 
 // make image to base64
-function readFile() {
-
-  if (this.files && this.files[0]) {
-
+function readFile(e) {
+  /*
+  if (this.fiddles && this.files[0]) {
     var FR = new FileReader();
     FR.addEventListener("load", function (e) {
       // e.target.result is image base64 form so binding it to Vue
-      add_food.food_img = e.target.result;
       $("#upload_food_img").css("background-image", 'url(' + add_food.food_img + ')');
       $("#upload_food_img").css("width", "300px");
       $("#upload_food_img").css("height", "200px");
       $("#upload_food_img").css("margin", "5px");
-      //console.log(e.target.result)
     });
     FR.readAsDataURL(this.files[0]);
-  }
+  }*/
 
+      const myfile = e.target.files[0]
+      new ImageCompressor(myfile, {
+    	quality: .6,
+    	success(result) {
+          const formData = new FormData();
+          formData.append('file', result, result.name);
+          add_food.food_file = formData
+        },
+        error(e) {
+          console.log(e.message);
+        },
+      });
 }
 document.getElementById("filechooser").addEventListener("change", readFile);
 
