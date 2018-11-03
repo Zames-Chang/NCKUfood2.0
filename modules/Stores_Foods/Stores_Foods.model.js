@@ -4,16 +4,16 @@ const mongoose = require('mongoose'),
 
 Schema = mongoose.Schema;  
 
-var Stores_FoodsScehma = new Schema({
+var Stores_FoodsSchema = new Schema({
     id: String,
     store_name: String,
     food_inf: {
         img:[String],
         price:[Number],
         name:[String]
-    }
+    },
     deadline: String,
-    location: String,
+    location: String
     },{collection : 'Stores_Foods'});
 
 var Stores_Foods = mongoose.model("Stores_Foods", Stores_FoodsSchema);
