@@ -16,6 +16,10 @@ CollaboratorsSchema.statics.find_by_id = (id, callback)=>{
     return this.findOne({id: id}, callback);
 }
 
+exports.find_by_id = (id, callback)=>{
+    return Collaborators.findOne({id: id}, callback);
+}
+
 exports.addCollaborators = (body)=>{
     var CollaboratorsEntity = new Collaborators(body);
     CollaboratorsEntity.save(function(error,doc) {
