@@ -1,0 +1,329 @@
+$divice_width: 375px
+$divice_height: 600px
+$reminder_width: 300px
+$reminder_height: 40px
+$store_img_width: 250px
+$store_img_height: 150px
+$store_map_width: 250px
+$store_map_height: 150px
+$food_width: 200px
+$food_height: 250px
+$food_img_width: $food_width - 10
+$food_img_height: 150px
+body
+  width: $divice_width
+  height: $divice_height
+  margin: 0px
+  padding: 0px
+html
+  width: $divice_width
+  height: $divice_height
+  margin: 0px
+  padding: 0px
+#mainpage
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  width: $divice_width
+  height: $divice_height
+  background-color: rgba(0,0,0,0.3)
+  //margin-left: auto
+  //margin-right: auto
+  padding-top: 20px
+  .title
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    font-family: 微軟正黑體
+    .major_title
+      font-size: 30px
+    .sub_title
+      font-size: 15px
+  #food_list
+    display: flex
+    flex-direction: column
+    .all_food
+      display: flex
+      justify-content: center
+      .food
+        font-family: 微軟正黑體
+        width: $food_width
+        height: $food_height
+        margin: 0px
+        background-color: #fff
+        border-radius: 10px
+        display: flex
+        flex-direction: column
+        align-items: center
+        .food_name
+          font-size: 20px
+        .all_img
+          overflow-y: scroll
+          &::-webkit-scrollbar
+            width: 0px
+          .food_img
+            width: $food_img_width
+            height: $food_img_height
+            background-position: center
+            background-size: 100%
+            margin-bottom: 5px
+        .last_time
+          width: 100px
+          height: 100px
+          position: fixed
+          background-color: rgba(255,255,255,0.4)
+          border-radius: 50%
+          margin-top: 50px
+          display: flex
+          justify-content: center
+          align-items: center
+          .time
+            font-size: 50px
+            padding: 0px
+            margin: 0px
+            color: black
+           
+    #change_button
+      display: flex
+      padding: 23px
+      justify-content: space-around
+    #food_inf
+      .modal-header
+        text-align: center
+        font-size: 30px
+        font-family: 微軟正黑體
+      .modal-body
+        display: flex
+        flex-direction: column
+        align-items: center
+        .store_img
+          width: $store_img_width
+          height: $store_img_height
+          background-position: center
+          background-size: 100%
+        .store_map
+          width: $store_map_width
+          height: $store_map_height
+          background-color: black
+          color: white
+  #functionial_button
+    display: flex
+    justify-content: space-around
+    padding: 10px
+    .hover
+      color: black
+      &:hover
+        color: white
+      
+  #reminder
+    width: $reminder_width
+    height: $reminder_height
+    background-color: rgba(0,0,0,0.4)
+    position: absolute
+    top: ($divice_height - $reminder_height)/2
+    left: ($divice_width - $reminder_width)/2
+    opacity: 0
+    display: flex
+    align-items: center
+    justify-content: space-around
+    a
+      .mycog
+        font-size: 20px
+        color: white
+    .reminder_text
+      color: white
+      font-size: 20px
+      font-family: 微軟正黑體
+
+#add_food
+  .modal-content
+    background-color: rgba(0,0,0,0.8)
+    color: white
+    font-family: 微軟正黑體
+    .modal-header
+      .close
+        color: white
+      .modal-title
+        text-align: center
+    .modal-body
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      .add_inf
+        width: 100%
+        padding: 0px
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        .mycontainer
+          width: 100%
+          display: flex
+          justify-content: space-between
+          margin: 5px
+          input
+            width: 200px
+          .choose_button
+            width: 200px
+            background-color: #fff
+        #upload_food_img
+          background-position: center
+          background-size: 100%
+          background-repeat: no-repeat
+          
+      .submit_food
+        width: 250px
+        
+.checkbox-slider--b-flat
+  position: relative
+  input
+    display: block
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    width: 0%
+    height: 0%
+    margin: 0 0
+    cursor: pointer
+    opacity: 0
+    filter: alpha(opacity = 0)
+    + span
+      cursor: pointer
+      -webkit-user-select: none
+      -moz-user-select: none
+      -ms-user-select: none
+      user-select: none
+      &:before
+        position: absolute
+        left: 0px
+        display: inline-block
+        content: ""
+        height: 20px
+        width: 40px
+        background: rgba(100, 100, 100, 0.2)
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.8)
+        transition: background 0.2s ease-out
+      > h4
+        display: inline
+      padding-left: 40px
+      &:after
+        width: 20px
+        height: 20px
+        position: absolute
+        left: 0px
+        top: 0
+        display: block
+        background: #ffffff
+        transition: margin-left 0.1s ease-in-out
+        text-align: center
+        font-weight: bold
+        content: ""
+    &:checked + span
+      &:after
+        margin-left: 20px
+        content: ""
+      &:before
+        transition: background 0.2s ease-in
+    + span
+      padding-left: 40px
+      &:before
+        border-radius: 20px
+        width: 40px
+      &:after
+        background: #ffffff
+        content: ""
+        width: 20px
+        border: solid transparent 2px
+        background-clip: padding-box
+        border-radius: 20px
+    &:not(:checked) + span:after
+      -webkit-animation: popOut ease-in 0.3s normal
+      animation: popOut ease-in 0.3s normal
+    &:checked + span
+      &:after
+        content: ""
+        margin-left: 20px
+        border: solid transparent 2px
+        background-clip: padding-box
+        -webkit-animation: popIn ease-in 0.3s normal
+        animation: popIn ease-in 0.3s normal
+      &:before
+        background: #5cb85c
+  &.checkbox-slider-md input + span
+    &:before, &:after
+      border-radius: 30px
+  &.checkbox-slider-lg input + span
+    &:before, &:after
+      border-radius: 40px
+  input + span:before
+    box-shadow: none
+
+/*#####
+
+.checkbox-slider-info
+  &.checkbox-slider--b input:checked + span:before, &.checkbox-slider--b-flat input:checked + span:before, &.checkbox-slider--c input:checked + span:before, &.checkbox-slider--c-weight input:checked + span:before
+    background: #5bc0de
+
+.checkbox-slider-warning
+  &.checkbox-slider--b input:checked + span:before, &.checkbox-slider--b-flat input:checked + span:before, &.checkbox-slider--c input:checked + span:before, &.checkbox-slider--c-weight input:checked + span:before
+    background: #f0ad4e
+
+.checkbox-slider-danger
+  &.checkbox-slider--b input:checked + span:before, &.checkbox-slider--b-flat input:checked + span:before, &.checkbox-slider--c input:checked + span:before, &.checkbox-slider--c-weight input:checked + span:before
+    background: #d9534f
+
+/*******************************************************
+ *Sizes
+ *******************************************************
+
+.checkbox-slider-sm
+  line-height: 10px
+  input
+    + span
+      padding-left: 20px
+      &:before
+        width: 20px
+      &:after, &:before
+        height: 10px
+        line-height: 10px
+      &:after
+        width: 10px
+        vertical-align: middle
+    &:checked + span:after
+      margin-left: 10px
+
+.checkbox-slider-md
+  line-height: 30px
+  input
+    + span
+      padding-left: 60px
+      &:before
+        width: 60px
+      &:after, &:before
+        height: 30px
+        line-height: 30px
+      &:after
+        width: 30px
+        vertical-align: middle
+    &:checked + span:after
+      margin-left: 30px
+
+.checkbox-slider-lg
+  line-height: 40px
+  input
+    + span
+      padding-left: 80px
+      &:before
+        width: 80px
+      &:after, &:before
+        height: 40px
+        line-height: 40px
+      &:after
+        width: 40px
+        vertical-align: middle
+    &:checked + span:after
+      margin-left: 40px

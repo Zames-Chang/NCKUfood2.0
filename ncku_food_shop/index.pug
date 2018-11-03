@@ -1,0 +1,67 @@
+#mainpage
+  .major_icon
+  .title
+    .major_title 成大剩食
+    .sub_title NCKU WASTED FOOD
+  #food_list
+    .all_food
+      template
+        .food
+          .food_name {{food_list[status].food_name}}
+          .all_img
+            .mycontainer(v-for="img in food_list[status].food_img")
+              .food_img(v-bind:style="{ 'background-image': 'url(' + img + ')' }",data-toggle='modal', data-target='#food_inf')
+          .last_time(data-toggle='modal', data-target='#food_inf')
+            .time {{food_list[status].last_time}}
+    #food_inf.modal.fade(role='dialog')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            .food_store {{food_list[status].food_store}}
+              button.close(type='button', data-dismiss='modal') ×
+          .modal-body
+            .store_img(v-bind:style="{ 'background-image': 'url(' + food_list[status].store_img + ')' }")
+            hr
+            .store_map google map
+    #change_button
+      button(v-on:click = "last_one()") 上一個
+      button(v-on:click = "next_one()") 下一個
+  #functionial_button
+    a(type='button', data-toggle='modal', data-target='#add_food')
+      span.glyphicon.glyphicon-plus.hover
+    a(href="#")
+      span.glyphicon.glyphicon-file.hovermycon.hover
+    a(v-on:click = "show_reminder()")
+      span.glyphicon.glyphicon-cog.hover
+  #reminder
+    a
+      span.glyphicon.glyphicon-cog.mycog
+    .reminder_text 提醒通知
+    .checkbox.checkbox-slider--b-flat.checkbox-slider-md
+      label
+        input(type='checkbox', checked='',v-model="checked",v-on:click = 'renew_reminder')
+        span
+#add_food.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title 加入剩食
+      .modal-body
+        .add_inf
+          .mycontainer
+            p 菜單名
+            input(v-model="food_name",placeholder="TYPE").form-control
+          .mycontainer
+            p 價格
+            input(v-model="food_price",placeholder="TYPE").form-control
+          .mycontainer
+            p 新增照片
+            label.btn.btn-default.btn-file.choose_button CHOOSE
+              input(type="file" style="display: none;")#filechooser
+          #upload_food_img
+        button(v-on:click = "submit_food()").submit_food.btn.btn-default ENTER
+        .error
+          .error_message(v-if = "error_code") {{ error_message }}
+

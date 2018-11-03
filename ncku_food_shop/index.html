@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>ncku_food_shop</title>
+  
+  
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  
+<div id="mainpage">
+  <div class="major_icon"></div>
+  <div class="title">
+    <div class="major_title">成大剩食</div>
+    <div class="sub_title">NCKU WASTED FOOD</div>
+  </div>
+  <div id="food_list">
+    <div class="all_food">
+      <template>
+        <div class="food">
+          <div class="food_name">{{food_list[status].food_name}}</div>
+          <div class="all_img">
+            <div class="mycontainer" v-for="img in food_list[status].food_img">
+              <div class="food_img" v-bind:style="{ 'background-image': 'url(' + img + ')' }" data-toggle="modal" data-target="#food_inf"></div>
+            </div>
+          </div>
+          <div class="last_time" data-toggle="modal" data-target="#food_inf">
+            <div class="time">{{food_list[status].last_time}}</div>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class="modal fade" id="food_inf" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="food_store">{{food_list[status].food_store}}
+              <button class="close" type="button" data-dismiss="modal">×</button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="store_img" v-bind:style="{ 'background-image': 'url(' + food_list[status].store_img + ')' }"></div>
+            <hr/>
+            <div class="store_map">google map</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="change_button">
+      <button v-on:click="last_one()">上一個</button>
+      <button v-on:click="next_one()">下一個</button>
+    </div>
+  </div>
+  <div id="functionial_button"><a type="button" data-toggle="modal" data-target="#add_food"><span class="glyphicon glyphicon-plus hover"></span></a><a href="#"><span class="glyphicon glyphicon-file hovermycon hover"></span></a><a v-on:click="show_reminder()"><span class="glyphicon glyphicon-cog hover"></span></a></div>
+  <div id="reminder"><a><span class="glyphicon glyphicon-cog mycog"></span></a>
+    <div class="reminder_text">提醒通知</div>
+    <div class="checkbox checkbox-slider--b-flat checkbox-slider-md">
+      <label>
+        <input type="checkbox" checked="" v-model="checked" v-on:click="renew_reminder"/><span></span>
+      </label>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add_food" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">×</button>
+        <h4 class="modal-title">加入剩食</h4>
+      </div>
+      <div class="modal-body">
+        <div class="add_inf">
+          <div class="mycontainer">
+            <p>菜單名</p>
+            <input class="form-control" v-model="food_name" placeholder="TYPE"/>
+          </div>
+          <div class="mycontainer">
+            <p>價格</p>
+            <input class="form-control" v-model="food_price" placeholder="TYPE"/>
+          </div>
+          <div class="mycontainer">
+            <p>新增照片</p>
+            <label class="btn btn-default btn-file choose_button">CHOOSE
+              <input type="file" style="display: none;" id="filechooser"/>
+            </label>
+          </div>
+          <div id="upload_food_img"></div>
+        </div>
+        <button class="submit_food btn btn-default" v-on:click="submit_food()">ENTER</button>
+        <div class="error">
+          <div class="error_message" v-if="error_code">{{ error_message }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
