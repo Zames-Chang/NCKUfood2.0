@@ -6,7 +6,11 @@ var app = new Vue({
   data: {
     food_list: food_list,
     status: 0 },
-
+  created: function() {
+    $.post("getFood", function (data) {
+      food_list = data
+    })
+  }
   methods: {
     next_one: function next_one() {
       var now_status = app.status;
@@ -62,9 +66,11 @@ var my_reminder = new Vue({
 var add_food = new Vue({
   el: "#add_food",
   data: {
+    shop_code:"活力小廚"
     food_name: '',
     food_price: '',
     food_img: '',
+    last_time: '',
     error_message: "你有東西未填",
     error_code: false },
 
@@ -77,6 +83,17 @@ var add_food = new Vue({
         } else
         {
           add_food.error_code = false;
+          var uploadFood = {
+            shop_code: shop_code,
+            food_name: food_name,
+            food_price: food_price,
+            food_img: food_img,// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
+            last_time: last_time; // min
+          }
+          $.post("uploadFood",uploadFood, function (data) {
+            app.food_list = data
+            app.$forceUpdate()
+          }
         }
         if (add_food.error_message[0] == '' && add_food.error_message[1] == '' && add_food.error_message[2] == '') {
           // display

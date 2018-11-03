@@ -13,11 +13,15 @@ const
   FBMessenger = require('fb-messenger'),
   db = require('./db/connect'),
   STU = require('./modules/Students/Students.model'),
+  STORES_FOODS = require('./modules/Stores_Foods/Stores_Foods.model'),
   mes = require('./utils/mes'),
   messenger = new FBMessenger(fb.page_token),
   US = require('./modules/Users/Users.model'),
   ratio = 10;
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 var subtract = new Subtract((a, b) => { return a === b })
 // 連上db
 db.start()
@@ -37,6 +41,7 @@ var
 /*----ncku_food_shop-----------*/
 
 app.post('/ShopCode',(req,res)=>{
+    console.log(req.body)
     console.log('ID:' + req.body.userID)
     res.send('-1');
 })
@@ -49,35 +54,40 @@ app.post("/getFood",(req,res)=>{ // foodList
         price:[10,20],
         name:["大雞雞1","bigMIMI"]
       },
-      last_time: 10, //　可等待時間
-      food_store:"晚間廚房",
-      store_img:"img/shopA/storeA.jpg",
-      food_name: "大雞雞2"
+      deadline: '10', //　可等待時間
+      store_name:"晚間廚房",
+      location:'lalala',
+      id:'123'
       },
-      {
-      food_inf:{
-        price:[10],
-        name:["大雞1"],
-        img:["img/shopB/food1.jpg"]
+
+     {	
+     food_inf: {
+        img:["img/shopA/food1.jpg","img/shopA/food2.jpg"],
+        price:[22,20],
+        name:["大雞雞2","bigMIMI"]
       },
-      last_time: 20,
-      food_store:"晚間廚房",
-      store_img:"img/shopB/storeB.jpg"
-      } 
-
-
-
+      deadline: '10', //　可等待時間
+      store_name:"晚間廚房",
+      location:'lalala',
+      id:'123'
+      },
     ]
+    STORES_FOODS.addStores_Foods(foodList[0])
+
+    STORES_FOODS.list_Stores_Foods()
     res.send(foodList)
 })
 
 app.post("/uploadFood",(req,res)=>{
   var uploadFood = {
+    shopCode:'87',
     food_name: 'trash',
     food_price: '50',
     food_img: '<ImageToCode>',// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
     last_time: 50 // min
   }
+
+
   console.log(req.body.uploadFood)
 //  if(success add to database) res.send(1)
 //  else{res.send(-1)}
