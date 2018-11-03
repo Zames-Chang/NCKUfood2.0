@@ -128,8 +128,9 @@ document.getElementById("filechooser").addEventListener("change", readFile);
 // renew data if some food out of time
 function renew_data() {
   // ajax new data from backend
-
+  $.post("getFood", function (data) {
+    app.food_list = data
+    app.$forceUpdate()
+  })
 }
-food_list.forEach(function (element) {
-  window.setTimeout(renew_data, 1000);
-});
+window.setTimeout(renew_data, 1000);
