@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
 
 Schema = mongoose.Schema;  
 
-var Stores_FoodsScehma = new Schema({
+var Stores_FoodsSchema = new Schema({
     id: String,
     store_name: String,
     food_inf: {
