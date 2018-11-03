@@ -91,8 +91,9 @@ var add_food = new Vue({
             last_time: last_time // min
           }
           $.post("uploadFood",uploadFood, function (data) {
-            app.food_list = data
-            app.$forceUpdate()
+            if(data){
+              alert("上傳成功")
+            }
           })
         }
         if (add_food.error_message[0] == '' && add_food.error_message[1] == '' && add_food.error_message[2] == '') {
