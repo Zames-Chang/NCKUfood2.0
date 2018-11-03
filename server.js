@@ -30,9 +30,63 @@ var
   ca = fs.readFileSync(__dirname + '/ssl/ca_bundle.crt'),
   credentials = { key: privateKey, cert: certificate, ca: ca } 
 //打開 https port 
-  https.createServer(credentials, app).listen(17486, function () {
+  https.createServer(credentials, app).listen(17480, function () {
     
     })
+
+/*----ncku_food_shop-----------*/
+
+app.post('/ShopCode',(req,res)=>{
+    console.log('ID:' + req.body.userID)
+    res.send('-1');
+})
+
+app.post("/getFood",(req,res)=>{ // foodList
+    var foodList = [
+     {	
+     food_inf: {
+        img:["img/shopA/food1.jpg","img/shopA/food2.jpg"],
+        price:[10,20],
+        name:["大雞雞1","bigMIMI"]
+      },
+      last_time: 10, //　可等待時間
+      food_store:"晚間廚房",
+      store_img:"img/shopA/storeA.jpg",
+      food_name: "大雞雞2"
+      },
+      {
+      food_inf:{
+        price:[10],
+        name:["大雞1"],
+        img:["img/shopB/food1.jpg"]
+      },
+      last_time: 20,
+      food_store:"晚間廚房",
+      store_img:"img/shopB/storeB.jpg"
+      } 
+
+
+
+    ]
+    res.send(foodList)
+})
+
+app.post("/uploadFood",(req,res)=>{
+  var uploadFood = {
+    food_name: 'trash',
+    food_price: '50',
+    food_img: '<ImageToCode>',// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
+    last_time: 50 // min
+  }
+  console.log(req.body.uploadFood)
+//  if(success add to database) res.send(1)
+//  else{res.send(-1)}
+})
+
+
+
+/*----ncku_food_shop-----------*/
+
 app.get('/rending',(req,res)=>{
   var id = req.query.id
   US.findbyid(id,(exist, responds)=>{
@@ -124,7 +178,7 @@ app.get('/nckufood_student',(req,res)=>{
   })
 
 }) 
-
+app.use(express.static("ncku_food_shop"));
 
 /*--webpage--*/
 app.get('/web_student',function(req,res){
@@ -146,6 +200,7 @@ app.get('/css/loading-spin.svg', function(req, res) {
 /*--both nckudood_shop and nckufood_student--*/
 
 /*---nckufood_shop---*/
+/*
 app.get('/web_shop',function(req,res){
   res.sendFile(__dirname + '/public/nckufood_shop.html') 
   }) 
@@ -158,6 +213,7 @@ app.get('/css/nckufood_shop.css', function(req, res) {
 app.get('/js/nckufood_shop.js', function(req, res) {
   res.sendFile(__dirname + "/public/js/nckufood_shop.js") 
   }) 
+*/
 /*---nckufood_shop---*/
 
 /*---nckufood_student----*/
@@ -183,7 +239,15 @@ app.get('/web_subscribe',function(req,res){
   res.sendFile(__dirname + '/public/subscribe2.html') 
   }) 
 /*----subscribe----*/
+/*-----ncku_food_shop-----------*/
 
+app.get('/web_shop',function(req,res){
+  res.sendFile(__dirname + '/ncku_food_shop/index.html') 
+  }) 
+
+
+
+/*-----ncku_food_shop-----------*/
 
 //處理fb事件
 app.post('/webhook',(req, res)=>{
