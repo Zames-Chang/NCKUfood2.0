@@ -2,7 +2,7 @@
 //import ImageCompressor from 'image-compressor.js';
 
 // fake data
-var food_list = [{ food_name: "大雞雞1", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 10, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞2", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 20, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞3", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 30, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞4", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 40, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }];
+var food_list = [{food_name: "大雞雞1", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 10, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞2", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 20, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞3", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 30, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞4", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 40, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }];
 // Vue for food list
 var app = new Vue({
   el: "#food_list",
@@ -11,7 +11,11 @@ var app = new Vue({
     status: 0 },
   created: function() {
     $.post("getFood", function (data) {
-      app.food_list = data
+      console.log(data)
+      if(!data.length){
+	app.food_list = food_list
+      }
+      else app.food_list = data
     })
   },
   methods: {
@@ -77,7 +81,6 @@ var add_food = new Vue({
     shop_code:'活力小廚',
     error_message: '你有東西未填',
     error_code: false },
-
   methods: {
     submit_food: function submit_food() {
       $.post("ShopCode",{ userID:"123456" }, function (data) {
@@ -115,16 +118,17 @@ var add_food = new Vue({
 
 // make image to base64
 function readFile() {
-  if (this.fiddles && this.files[0]) {
+  console.log(12345)
+  if (this.files && this.files[0]) {
     var FR = new FileReader();
     FR.addEventListener("load", function (e) {
       // e.target.result is image base64 form so binding it to Vue
       var str = e.target.result
-      //var compressed = LZString.compress(str);
+      var compressed = LZString.compress(str);
       add_food.food_img = e.target.result
-      //add_food.food_file = str
-      var my_lzma = new LZMA("./lzma_worker.js");
-      console.log(add_food.food_img)
+      add_food.food_file = str
+      //var my_lzma = new LZMA("./lzma_worker.js");
+      console.log(add_food.food_file)
       //my_lzma.compress(str, 1, on_finish(result, error) {add_food.food_file = result}, on_progress(percent) {});
       $("#upload_food_img").css("background-image", 'url(' + add_food.food_img + ')');
       $("#upload_food_img").css("width", "300px");
@@ -158,4 +162,4 @@ function renew_data() {
     app.$forceUpdate()
   })
 }
-window.setTimeout(renew_data, 60000);
+//window.setTimeout(renew_data, 60000);

@@ -4,6 +4,7 @@ const
   Subtract = require('array-subtract'),  //用於兩個矩陣相減
   https = require('https'), //用於打開https port
   fs = require('fs'), //讀檔案模組
+  imgurUploader = require('imgur-uploader'),
   express = require('express'), //後端
   bodyParser = require('body-parser'),
   app = express().use(bodyParser.json()),
@@ -14,10 +15,16 @@ const
   db = require('./db/connect'),
   STU = require('./modules/Students/Students.model'),
   STORES_FOODS = require('./modules/Stores_Foods/Stores_Foods.model'),
+  CB = require('./modules/Collaborators/Collaborators.model'), 
   mes = require('./utils/mes'),
   messenger = new FBMessenger(fb.page_token),
   US = require('./modules/Users/Users.model'),
-  ratio = 10;
+  ratio = 10,
+  LZString = require('lz-string'),
+  Base64 = require('js-base64').Base64;
+const { base64encode, base64decode } = require('nodejs-base64');
+
+
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -27,6 +34,10 @@ var subtract = new Subtract((a, b) => { return a === b })
 db.start()
 // 將目前的投食事件存到這個array
 global.EVENTS = []
+global.STORES_FOODS_EVENTS = []
+//food shop array
+
+
 // 給予他公鑰和私鑰
 var 
   privateKey  = fs.readFileSync(__dirname + '/ssl/private.key'),
@@ -41,56 +52,95 @@ var
 /*----ncku_food_shop-----------*/
 
 app.post('/ShopCode',(req,res)=>{
-    console.log(req.body)
+    var userId = req.body.userId
     console.log('ID:' + req.body.userID)
-    res.send('-1');
+    CB.find_by_id(userId, (exist, respond)=>{
+	if(exist){
+	res.send('1')
+	}
+	else{
+	res.send('-1')
+	}
+	 
+    })
 })
 
 app.post("/getFood",(req,res)=>{ // foodList
-    var foodList = [
-     {	
-     food_inf: {
-        img:["img/shopA/food1.jpg","img/shopA/food2.jpg"],
-        price:[10,20],
-        name:["大雞雞1","bigMIMI"]
-      },
-      deadline: '10', //　可等待時間
-      store_name:"晚間廚房",
-      location:'lalala',
-      id:'123'
-      },
-
-     {	
-     food_inf: {
-        img:["img/shopA/food1.jpg","img/shopA/food2.jpg"],
-        price:[22,20],
-        name:["大雞雞2","bigMIMI"]
-      },
-      deadline: '10', //　可等待時間
-      store_name:"晚間廚房",
-      location:'lalala',
-      id:'123'
-      },
-    ]
-    STORES_FOODS.addStores_Foods(foodList[0])
-
-    STORES_FOODS.list_Stores_Foods()
-    res.send(foodList)
+    
+    var date = new Date()
+    for(var i=0 ; i< STORES_FOODS_EVENTS.length;i++){
+	if(date - STORES_FOODS_EVENTS.deadline > 0){
+	    STORES_FOODS_EVENTS.splice(i,1)
+	}
+		 
+    }
+    res.send(STORES_FOODS_EVENTS)
 })
 
 app.post("/uploadFood",(req,res)=>{
-  var uploadFood = {
-    shopCode:'87',
-    food_name: 'trash',
-    food_price: '50',
-    food_img: '<ImageToCode>',// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
-    last_time: 50 // min
-  }
+    var 
+	userId = req.body.userId,
+	shopCode  = req.body.shopCode,
+     	food_name = req.body.food_name,
+     	food_price = req.body.food_price,
+     	food_file = req.body.food_file,
+	food_base64 = LZString.decompress(food_file),
+	last_time = req.body.last_time,
+    	now_time = new Date()
+    
+    var deadline = now_time.setSeconds(now_time.setMinutes()+last_time)
+    console.log(food_file)
+    food_file = food_file.split(',')[1]
+    food_base64 = LZString.decompress(food_file),
+    console.log(food_base64)
+    food_base64 = food_base64.split(',')[1]
+    console.log(food_base64)
+    fs.writeFile("tmp.png", Base64.decode(food_base64), 'base64',(err)=>{console.log(err)})
+    
 
+    imgurUploader(fs.readFileSync('tmp.png'), {title: 'food'}).then(data => {
+    	console.log(data);
+    	/*
+    	{
+        	id: 'OB74hEa',
+        	link: 'http://i.imgur.com/jbhDywa.jpg',
+       	 	title: 'Hello!',
+        	date: Sun May 24 2015 00:02:41 GMT+0200 (CEST),
+        	type: 'image/jpg',
+        	...
+    	}
+    	*/
+     	CB.find_by_id(id, (exist, respond)=>{
+	    shop_location = respond.location		
+     	
+     	    var food_event = {	
+     		food_inf: {
+        		img:[data.link],
+        		price:[food_price],
+        		name:[food_name]
+      		},
+      		deadline: deadline,
+      		store_name:shopCode,
+      		location:shop_location,
+      		id:userId
+      	    }
 
-  console.log(req.body.uploadFood)
-//  if(success add to database) res.send(1)
-//  else{res.send(-1)}
+    	    STORES_FOODS.addStores_Foods(food_event)
+    	    STORES_FOODS.list_Stores_Foods()
+      	    global.EVENTS.push(food_event) 
+	})
+    
+
+    });
+
+    var date = new Date()
+    for(var i=0 ; i< STORES_FOODS_EVENTS.length;i++){
+	if(date - STORES_FOODS_EVENTS.deadline > 0){
+	    STORES_FOODS_EVENTS.splice(i,1)
+	}
+		 
+    }
+    res.send(STORES_FOODS_EVENTS)
 })
 
 
