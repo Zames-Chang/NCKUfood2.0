@@ -8,7 +8,7 @@ var app = new Vue({
     status: 0 },
   created: function() {
     $.post("getFood", function (data) {
-      food_list = data
+      app.food_list = data
     })
   },
   methods: {
@@ -88,12 +88,12 @@ var add_food = new Vue({
             food_name: food_name,
             food_price: food_price,
             food_img: food_img,// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
-            last_time: last_time; // min
+            last_time: last_time // min
           }
           $.post("uploadFood",uploadFood, function (data) {
             app.food_list = data
             app.$forceUpdate()
-          }
+          })
         }
         if (add_food.error_message[0] == '' && add_food.error_message[1] == '' && add_food.error_message[2] == '') {
           // display
