@@ -70,7 +70,7 @@ var add_food = new Vue({
     food_name: '',
     food_price: '',
     food_img: '',
-    last_time: '',
+    last_time: 50,
     error_message: "你有東西未填",
     error_code: false },
 
@@ -84,11 +84,11 @@ var add_food = new Vue({
         {
           add_food.error_code = false;
           var uploadFood = {
-            shop_code: shop_code,
-            food_name: food_name,
-            food_price: food_price,
-            food_img: food_img,// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
-            last_time: last_time // min
+            shop_code: add_food.shop_code,
+            food_name: add_food.food_name,
+            food_price: add_food.food_price,
+            food_img: add_food.food_img,// 我會將圖片轉用base64　以字串的方式傳輸過去　https://www.base64-image.de/
+            last_time: add_food.last_time // min
           }
           $.post("uploadFood",uploadFood, function (data) {
             if(data != -1){
