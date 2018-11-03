@@ -70,7 +70,7 @@ var add_food = new Vue({
 
   methods: {
     submit_food: function submit_food() {
-      $.post("ShopCode", function (data) {
+      $.post("ShopCode",{ userID:"123456" }, function (data) {
         alert("Data Loaded: " + data);
         if (add_food.food_name == '' || add_food.food_price == '' || add_food.food_img == '') {
           add_food.error_code = true;
