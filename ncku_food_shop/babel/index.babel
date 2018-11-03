@@ -55,6 +55,7 @@ var my_reminder = new Vue({
   methods:{
     renew_reminder: ()=>{
       // ajax to backend here
+      
     }
   }
 })
@@ -69,15 +70,18 @@ var add_food = new Vue({
   },
   methods:{
     submit_food: ()=>{
-      if(add_food.food_name == '' || add_food.food_price == '' || add_food.food_img == ''){
-        add_food.error_code = true
-      }
-      else{
-        add_food.error_code = false
-      }
-      if(add_food.error_message[0] == '' && add_food.error_message[1] == '' && add_food.error_message[2] == ''){
+      $.post("ShopCode", function( data ) {
+        alert( "Data Loaded: " + data );
+        if(add_food.food_name == '' || add_food.food_price == '' || add_food.food_img == ''){
+          add_food.error_code = true
+        }
+        else{
+          add_food.error_code = false
+        }
+        if(add_food.error_message[0] == '' && add_food.error_message[1] == '' && add_food.error_message[2] == ''){
           // display
-      }
+        }
+      });
     }
   }
 })
@@ -107,7 +111,8 @@ document.getElementById("filechooser").addEventListener("change", readFile)
 // renew data if some food out of time
 function renew_data(){
   // ajax new data from backend
+  
 }
 food_list.forEach(function(element) {
-  window.setTimeout(renew_data, element.last_time*1000*60)
+  window.setTimeout(renew_data, 1000)
 })
