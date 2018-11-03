@@ -1,5 +1,5 @@
-import axios from 'axios';
-import ImageCompressor from 'image-compressor.js';
+//import axios from 'axios';
+//import ImageCompressor from 'image-compressor.js';
 
 // fake data
 var food_list = [{ food_name: "大雞雞1", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 10, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞2", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 20, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞3", food_img: ["https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg", "https://i.imgur.com/oAAZLQ5.jpg"], last_time: 30, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }, { food_name: "大雞雞4", food_img: ["https://i.imgur.com/oAAZLQ5.jpg"], last_time: 40, food_store: "晚間廚房", store_img: "https://i.imgur.com/oAAZLQ5.jpg" }];
@@ -115,19 +115,22 @@ var add_food = new Vue({
 
 // make image to base64
 function readFile(e) {
-  /*
   if (this.fiddles && this.files[0]) {
     var FR = new FileReader();
     FR.addEventListener("load", function (e) {
       // e.target.result is image base64 form so binding it to Vue
+      var str = e.target.result
+      var compressed = LZString.compress(str);
+      add_food.food_img = e.target.result
+      add_food.food_file = str
       $("#upload_food_img").css("background-image", 'url(' + add_food.food_img + ')');
       $("#upload_food_img").css("width", "300px");
       $("#upload_food_img").css("height", "200px");
       $("#upload_food_img").css("margin", "5px");
     });
     FR.readAsDataURL(this.files[0]);
-  }*/
-
+  }
+    /*
       const myfile = e.target.files[0]
       new ImageCompressor(myfile, {
     	quality: .6,
@@ -140,6 +143,7 @@ function readFile(e) {
           console.log(e.message);
         },
       });
+    */
 }
 document.getElementById("filechooser").addEventListener("change", readFile);
 
