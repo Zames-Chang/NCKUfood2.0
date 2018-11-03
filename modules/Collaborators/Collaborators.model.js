@@ -12,6 +12,10 @@ var CollaboratorsSchema = new Schema({
 
 var Collaboratorss = mongoose.model("Collaborators",CollaboratorssSchema);
 
+CollaboratorsSchema.statics.find_by_id = (id, callback)=>{
+    return this.findOne({id: id}, callback);
+}
+
 exports.addCollaborators = (body)=>{
     var CollaboratorsEntity = new Collaborators(body);
     CollaboratorsEntity.save(function(error,doc) {
