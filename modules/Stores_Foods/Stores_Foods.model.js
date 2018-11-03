@@ -6,7 +6,7 @@ Schema = mongoose.Schema;
 
 var Stores_FoodsScehma = new Schema({
     id: String,
-    stord_name: String,
+    store_name: String,
     food_inf: {
         img:[String],
         price:[Number],
