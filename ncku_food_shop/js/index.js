@@ -91,8 +91,13 @@ var add_food = new Vue({
             last_time: last_time // min
           }
           $.post("uploadFood",uploadFood, function (data) {
-            if(data){
+            if(data != -1){
               alert("上傳成功")
+              app.food_list = data
+              app.$forceUpdate()
+            }
+            else{
+              alert("上傳失敗")
             }
           })
         }
@@ -110,7 +115,6 @@ function readFile() {
   if (this.files && this.files[0]) {
 
     var FR = new FileReader();
-
     FR.addEventListener("load", function (e) {
       // e.target.result is image base64 form so binding it to Vue
       add_food.food_img = e.target.result;
