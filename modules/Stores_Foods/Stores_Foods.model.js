@@ -11,9 +11,9 @@ var Stores_FoodsScehma = new Schema({
         img:[String],
         price:[Number],
         name:[String]
-    }
+    },
     deadline: String,
-    location: String,
+    location: String
     },{collection : 'Stores_Foods'});
 
 var Stores_Foods = mongoose.model("Stores_Foods", Stores_FoodsSchema);
