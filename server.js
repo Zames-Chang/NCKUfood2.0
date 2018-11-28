@@ -239,6 +239,7 @@ app.get('/nckufood_student',(req,res)=>{
 
 }) 
 app.use(express.static("ncku_food_shop"));
+app.use(express.static("test_imgur"));
 
 /*--webpage--*/
 app.get('/web_student',function(req,res){
@@ -305,6 +306,9 @@ app.get('/web_shop',function(req,res){
   res.sendFile(__dirname + '/ncku_food_shop/index.html') 
   }) 
 
+app.get('/test_imgur',function(req,res){
+  res.sendFile(__dirname + '/test_imgur/index.html') 
+  }) 
 
 
 /*-----ncku_food_shop-----------*/
