@@ -59,7 +59,7 @@ app.post('/ShopCode',(req,res)=>{
 	res.send('1')
 	}
 	else{
-	res.send('myshop')
+	res.send('1')
 	}
 	 
     })
@@ -78,6 +78,9 @@ app.post("/getFood",(req,res)=>{ // foodList
 })
 
 app.post("/uploadFood",(req,res)=>{
+    console.log("under uploadFood ")
+    console.log(req.body)
+    /*
     var 
 	userId = req.body.userId,
 	shopCode  = req.body.shopCode,
@@ -100,7 +103,7 @@ app.post("/uploadFood",(req,res)=>{
 
     imgurUploader(fs.readFileSync('tmp.png'), {title: 'food'}).then(data => {
     	console.log(data);
-    	/*
+    	
     	{
         	id: 'OB74hEa',
         	link: 'http://i.imgur.com/jbhDywa.jpg',
@@ -109,7 +112,7 @@ app.post("/uploadFood",(req,res)=>{
         	type: 'image/jpg',
         	...
     	}
-    	*/
+    	
      	CB.find_by_id(id, (exist, respond)=>{
 	    shop_location = respond.location		
      	
@@ -141,6 +144,7 @@ app.post("/uploadFood",(req,res)=>{
 		 
     }
     res.send(STORES_FOODS_EVENTS)
+    */
 })
 
 
