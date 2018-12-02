@@ -24,6 +24,7 @@
     "fb-messenger-app": "^4.2.0",
     "imgur-uploader": "^4.2.1",
     "js-base64": "^2.4.9",
+    "js-beautify": "^1.8.8",
     "lz-string": "^1.4.4",
     "mongodb": "^2.2.33",
     "mongoose": "^4.13.5",
