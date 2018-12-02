@@ -200,7 +200,8 @@ var add_food = new Vue({
                 }
                 }
            });
-      }
+        }
+    }
 });
 
 
