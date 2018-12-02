@@ -11,7 +11,7 @@ const album = ''; // 若要指定傳到某個相簿，就填入相簿的 ID
 
 // Vue for food list
 
-var test_img
+
 
 
 var app = new Vue({
@@ -98,16 +98,15 @@ var add_food = new Vue({
       size: null 
     },
     title: '', 
-    des: 'this is a image' ,
-    error_code: false 
-  },
+    des: '' ,
+    error_code: false },
   methods: {
     showFile(e) {
       this.file = e.target.files[0];
       this.fs.name = this.file.name; 
       this.fs.size = Math.floor(this.file .size * 0.001) + 'KB'; 
       this.fs.thumbnail = window.URL.createObjectURL(this.file); 
-      this.title = this.food_name; 
+      this.title = this.fs.name; 
     },
     submit_food: function submit_food() {
       $.post("ShopCode",{ userID:"123456" }, function (data) {
@@ -116,13 +115,13 @@ var add_food = new Vue({
              return 
         }
         else{
-            add_food.shop_code = data
+            this.shop_code = data
         }
-        if (add_food.food_name == '' || add_food.food_price == '' || add_food.food_img == '') {
-          add_food.error_code = true;
+        if (this.food_name == '' || this.food_price == '' || this.food_img == '') {
+          this.error_code = true;
         } else
         {
-          add_food.error_code = false;
+          this.error_code = false;
 
 	      let settings = {
 		async: false,
@@ -138,22 +137,22 @@ var add_food = new Vue({
 	      };
 	 
 	      let form = new FormData();
-	      form.append('image', add_food.file);
-	      form.append('title', add_food.title);
-	      form.append('description', add_food.des);
+	      form.append('image', this.file);
+	      form.append('title', this.title);
+	      form.append('description', this.des);
 	      form.append('album', album); // 有要指定的相簿就加這行
+	 
 	      settings.data = form;
  
       $.ajax(settings).done(function(res) {
-         var res_json = JSON.parse(res)
-         add_food.food_url = res_json.data.link
+         this.food_url: res.data.link
       });
           var uploadFood = {
-            shop_code: add_food.shop_code,
-            food_name: add_food.food_name,
-            food_price: add_food.food_price,
-            food_url: add_food.food_url,
-            last_time: add_food.last_time // min
+            shop_code: this.shop_code,
+            food_name: this.food_name,
+            food_price: this.food_price,
+            food_url: this.food_url,
+            last_time: this.last_time // min
           }
           $.post("uploadFood",uploadFood, function (data) {
             if(data != -1){
@@ -186,6 +185,7 @@ function readFile() {
       add_food.food_img = e.target.result
       add_food.food_file = str
       //var my_lzma = new LZMA("./lzma_worker.js");
+      console.log(add_food.food_file)
       //my_lzma.compress(str, 1, on_finish(result, error) {add_food.food_file = result}, on_progress(percent) {});
       $("#upload_food_img").css("background-image", 'url(' + add_food.food_img + ')');
       $("#upload_food_img").css("width", "300px");
