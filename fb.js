@@ -24,7 +24,7 @@ var fb ={
                   "webview_height_ratio": "tall",
                   "messenger_extensions": true,
                   "webview_share_button": "hide",
-                },
+                },/*
                {
                   "type":"web_url",
                   "url":"https://docs.google.com/forms/d/e/1FAIpQLSe82mXJbgs7NmjYRLmiNeFm0G_P-S-iwYWaBe_9byrMGRUBtA/viewform",
@@ -33,7 +33,7 @@ var fb ={
                   "messenger_extensions": true,
                   "webview_share_button": "hide",
                 },
-                
+                */
                 {
                   "type":"web_url",
                   "url":"https://luffy.ee.ncku.edu.tw/~luben3485/nckufood2.0webpage/nckufood_student.html?psid=" + sender_psid ,
