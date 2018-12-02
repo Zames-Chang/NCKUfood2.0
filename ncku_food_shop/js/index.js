@@ -111,9 +111,9 @@ var add_food = new Vue({
       this.title = this.food_name; 
     },
     submit_food: function submit_food() {
-      console.log(getUrlVars)
+      console.log(getUrlVars())
       user_id = "123456"
-      $.post("ShopCode",{ userID:"123456" }, function (data) {
+      $.post("ShopCode",{ user_id:"123456" }, function (data) {
         if(data == -1){
              alert("你不是店家喔")
              return 
