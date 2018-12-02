@@ -88,6 +88,7 @@ var add_food = new Vue({
     food_img: '',
     food_url: '',
     last_time: '',
+    user_id:'',
     shop_code:'活力小廚',
     error_message: '你有東西未填',
     album: album, 
@@ -110,6 +111,8 @@ var add_food = new Vue({
       this.title = this.food_name; 
     },
     submit_food: function submit_food() {
+      console.log(getUrlVars)
+      user_id = "123456"
       $.post("ShopCode",{ userID:"123456" }, function (data) {
         if(data == -1){
              alert("你不是店家喔")
@@ -178,7 +181,6 @@ var add_food = new Vue({
 
 // make image to base64
 function readFile() {
-  console.log(12345)
   if (this.files && this.files[0]) {
     var FR = new FileReader();
     FR.addEventListener("load", function (e) {
@@ -212,6 +214,14 @@ function readFile() {
     */
 }
 document.getElementById("filechooser").addEventListener("change", readFile);
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
 
 // renew data if some food out of time
 function renew_data() {
