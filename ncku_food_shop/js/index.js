@@ -147,6 +147,8 @@ var add_food = new Vue({
       $.ajax(settings).done(function(res) {
          var res_json = JSON.parse(res)
          add_food.food_url = res_json.data.link
+         console.log(add_food.food_url)
+         console.log(res_json.data)
       });
           var uploadFood = {
             shop_code: add_food.shop_code,
