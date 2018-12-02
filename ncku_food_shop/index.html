@@ -90,12 +90,12 @@
           <div class="mycontainer">
             <p>新增照片</p>
             <label class="btn btn-default btn-file choose_button">CHOOSE
-              <input type="file" style="display: none;" id="filechooser"/>
+              <input type="file" accept="image/*" style="display: none;" id="filechooser"  @change="showFile"/>
             </label>
           </div>
           <div id="upload_food_img"></div>
         </div>
-        <button class="submit_food btn btn-default" v-on:click="submit_food()">ENTER</button>
+        <button type="buttom" class="submit_food btn btn-default" v-on:click="submit_food()">ENTER</button>
         <div class="error">
           <div class="error_message" v-if="error_code">{{ error_message }}</div>
         </div>

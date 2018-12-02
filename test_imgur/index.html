@@ -13,23 +13,17 @@
 
 <body>
 
-  <label for="upload">選擇上傳圖檔</label>
-<input id="upload" type="file" accept="image/*" @change="showFile">
+<div id="upload">
+  <input type="file" accept="image/*" @change="showFile"/>
+  <buttom type="buttom" v-on:click="submit">aaa</buttom>
+</div>
 
-<label for="title">圖片名稱</label>
-<input class="form-control" id="title" type="text" v-model="title" @keyup.13="submit" required>
-
-<label for="des">圖片描述</label>
-<input class="form-control" id="des" type="text" v-model="des" @keyup.13="submit" required>
-
-
-<button class="btn btn-primary" type="button" @click="submit">上傳</button>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
 
   
 
-    <script  src="js/index.js"></script>
+    <script  src="js/test_imgur.js"></script>
 
 
 

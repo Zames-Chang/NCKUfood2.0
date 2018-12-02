@@ -59,7 +59,7 @@ app.post('/ShopCode',(req,res)=>{
 	res.send('1')
 	}
 	else{
-	res.send('-1')
+	res.send('myshop')
 	}
 	 
     })
@@ -239,7 +239,6 @@ app.get('/nckufood_student',(req,res)=>{
 
 }) 
 app.use(express.static("ncku_food_shop"));
-app.use(express.static("test_imgur"));
 
 /*--webpage--*/
 app.get('/web_student',function(req,res){

@@ -1,6 +1,5 @@
 const id = '69c371e07bdc430'; // 填入 App 的 Client ID
-const token = '11f22caceaf4119739c5a0df96d0fa6792e12030'; // 填入 token
-const album = 'a284727e2f7d80f71e8da43e40dc153f28f5c0a6'; // 若要指定傳到某個相簿，就填入相簿的 ID
+const token = 'a284727e2f7d80f71e8da43e40dc153f28f5c0a6'; // 若要指定傳到某個相簿，就填入相簿的 ID
  
 //- upload
 const upload = new Vue({
