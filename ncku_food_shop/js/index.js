@@ -194,14 +194,13 @@ var add_food = new Vue({
                                     alert("上傳失敗")
                                 }
                             })
-                        }
                     });
                 if (add_food.error_message[0] == '' && add_food.error_message[1] == '' && add_food.error_message[2] == '') {
                     // display
                 }
-            });
-        }
-    }
+                }
+           });
+      }
 });
 
 
