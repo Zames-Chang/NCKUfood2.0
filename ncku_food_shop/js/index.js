@@ -88,7 +88,7 @@ var add_food = new Vue({
     food_img: '',
     food_url: '',
     last_time: '',
-    user_id:'',
+    user_id:getUrlVars().psid,
     shop_code:'活力小廚',
     error_message: '你有東西未填',
     album: album, 
@@ -111,9 +111,7 @@ var add_food = new Vue({
       this.title = this.food_name; 
     },
     submit_food: function submit_food() {
-      console.log(getUrlVars())
-      user_id = "123456"
-      $.post("ShopCode",{ user_id:"123456" }, function (data) {
+      $.post("ShopCode",{ user_id:add_food.user_id }, function (data) {
         if(data == -1){
              alert("你不是店家喔")
              return 
@@ -154,6 +152,7 @@ var add_food = new Vue({
          console.log(res_json.data)
       });
           var uploadFood = {
+            user_id: add_food.user_id,
             shop_code: add_food.shop_code,
             food_name: add_food.food_name,
             food_price: add_food.food_price,
