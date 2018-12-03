@@ -52,9 +52,9 @@ var
 /*----ncku_food_shop-----------*/
 
 app.post('/ShopCode',(req,res)=>{
-    var userId = req.body.userId
-    console.log('ID:' + req.body.userID)
-    CB.find_by_id(userId, (exist, respond)=>{
+    var user_id = req.body.user_id
+    console.log('ID:' + req.body.user_id)
+    CB.find_by_id(user_id, (exist, respond)=>{
 	if(exist){
 	res.send('1')
 	}
@@ -78,44 +78,23 @@ app.post("/getFood",(req,res)=>{ // foodList
 })
 
 app.post("/uploadFood",(req,res)=>{
-    console.log("under uploadFood ")
     console.log(req.body)
-    /*
     var 
-	userId = req.body.userId,
-	shopCode  = req.body.shopCode,
+		user_id = req.body.user_id,
+		shopCode  = req.body.shop_code,
      	food_name = req.body.food_name,
      	food_price = req.body.food_price,
-     	food_file = req.body.food_file,
-	food_base64 = LZString.decompress(food_file),
-	last_time = req.body.last_time,
+     	food_url = req.body.food_url,
+		last_time = req.body.last_time,
     	now_time = new Date()
     
     var deadline = now_time.setSeconds(now_time.setMinutes()+last_time)
-    console.log(food_file)
-    food_file = food_file.split(',')[1]
-    food_base64 = LZString.decompress(food_file),
-    console.log(food_base64)
-    food_base64 = food_base64.split(',')[1]
-    console.log(food_base64)
-    fs.writeFile("tmp.png", Base64.decode(food_base64), 'base64',(err)=>{console.log(err)})
+  	//STORES_FOODS.list_Stores_Foods()
     
-
-    imgurUploader(fs.readFileSync('tmp.png'), {title: 'food'}).then(data => {
-    	console.log(data);
-    	
-    	{
-        	id: 'OB74hEa',
-        	link: 'http://i.imgur.com/jbhDywa.jpg',
-       	 	title: 'Hello!',
-        	date: Sun May 24 2015 00:02:41 GMT+0200 (CEST),
-        	type: 'image/jpg',
-        	...
-    	}
-    	
-     	CB.find_by_id(id, (exist, respond)=>{
-	    shop_location = respond.location		
-     	
+     	CB.find_by_id(user_id, (exist, respond)=>{
+	    console.log(exist)
+		shop_location = respond.location		
+		console.log(shop_location)     	
      	    var food_event = {	
      		food_inf: {
         		img:[data.link],
@@ -125,17 +104,17 @@ app.post("/uploadFood",(req,res)=>{
       		deadline: deadline,
       		store_name:shopCode,
       		location:shop_location,
-      		id:userId
+      		id:user_id
       	    }
-
-    	    STORES_FOODS.addStores_Foods(food_event)
+	
+ //   	    STORES_FOODS.addStores_Foods(food_event)
     	    STORES_FOODS.list_Stores_Foods()
-      	    global.EVENTS.push(food_event) 
-	})
+      	    global.STORES_FOODS_EVENTS.push(food_event) 
+			console.log("push to STORES_FOODS_EVENTS array")	
     
 
-    });
-
+    	});
+	
     var date = new Date()
     for(var i=0 ; i< STORES_FOODS_EVENTS.length;i++){
 	if(date - STORES_FOODS_EVENTS.deadline > 0){
@@ -144,7 +123,7 @@ app.post("/uploadFood",(req,res)=>{
 		 
     }
     res.send(STORES_FOODS_EVENTS)
-    */
+    
 })
 
 
